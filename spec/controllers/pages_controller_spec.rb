@@ -10,7 +10,7 @@ RSpec.describe PagesController, :type => :controller do
     
     it "return proper title" do
       get :home
-      expect(response.body).to have_selector("title", :text => "Ruby on Rails Tutorial Sample App | Home")
+      expect(response.body).to have_title("Home")
     end
   end
 
@@ -19,6 +19,11 @@ RSpec.describe PagesController, :type => :controller do
       get :contact
       expect(response).to be_success
     end
+    it "should return proper title" do
+      get :contact
+      expect(response.body).to have_title("Contact")
+    end
   end
+  
 
 end
