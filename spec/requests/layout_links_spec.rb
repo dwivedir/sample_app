@@ -22,5 +22,23 @@ RSpec.describe "LayoutLinks", :type => :request do
       expect(page).to have_title("About")
     end
 
+    it "should have a sign up page at /signup" do
+      visit signup_path
+      expect(page).to have_title("Sign up")
+    end
+
+    it "should have right links on the layout" do
+      visit root_path
+      expect(page).to have_title("Home")
+      click_link "About"
+      expect(page).to have_title("About")
+      click_link "Contact"
+      expect(page).to have_title("Contact")
+      click_link "Home"
+      expect(page).to have_title("Home")
+      click_link "Sign up now!"
+      expect(page).to have_title("Sign up")
+      expect(page).to have_selector('a[href="/"]>img')
+    end
   end
 end
