@@ -13,4 +13,5 @@ RSpec.describe UsersController, :type => :controller do
       expect(response.body).to have_title("Sign up")
     end
   end
+
 end
