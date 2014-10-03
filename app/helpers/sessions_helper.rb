@@ -40,7 +40,7 @@ module SessionsHelper
     session[:return_to] = nil
   end
 
-  def current_user? user
+  def correct_user? user
     current_user == user
   end
   private
