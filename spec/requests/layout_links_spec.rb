@@ -70,5 +70,11 @@ RSpec.describe "LayoutLinks", :type => :request do
         expect(page).to have_selector("a", :href => signout_path,
                                           :content => "Profile")
       end
+
+      it "should have a settings link" do
+        visit root_path
+        expect(page).to have_selector("a", :href => edit_user_path(@user),
+                                           :content => "Settings")
+      end
   end
 end
