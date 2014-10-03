@@ -38,4 +38,39 @@ RSpec.describe SessionsController, :type => :controller do
         expect(response.body).to have_title("Sign in")
       end
 
+    end
+
+    describe "success" do
+
+      before(:each) do
+        @user = Factory(:user)
+        @attr = { :email => @user.email, :password => @user.password }
+      end
+
+     it "should sing the user in" do
+       post :create, :session => @attr
+       expect(controller.current_user).to eq(@user)
+       expect(controller).to be_signed_in
+     end 
+
+     it "should redirect to the user show page" do
+       post :create, :session => @attr
+       expect(response).to redirect_to(user_path(@user))
+     end
+
+
+    end
+  end
+
+
+  describe "DELETE 'destroy' " do
+    it "should sign a user out" do
+      test_sign_in(Factory(:user))
+      delete :destroy
+      expect(controller).not_to be_signed_in
+      expect(response).to redirect_to(root_path)
+    end
+
+  end
+
 end
