@@ -91,18 +91,46 @@ RSpec.describe UsersController, :type => :controller do
         expect(response.body).to have_title("Edit User")
       end
 
-    end
+    endu
 
     describe "success" do
 
       before(:each) do
         @attr = { :name => "New Name", :email => "user@example.org",                             :password => "barbaz", :password_confirmation => "barbaz" }
       end
+
+      it "should change the user's attributes " do
+        put :update, :id => @user, :user => @attr
+        user = assigns(:user)
+        @user.reload
+        expect(@user.name).to eq(user.name)
+        expect(@user.email).to eq(user.email)
+      end
+
+      it "should have a flash message" do
+        put :update, :id => @user, :user => @attr
+        expect(flash[:success]).to match(/updated/)
+      end
+
     end
-
-
   end
 
+  describe "authentication of edit/update actions" do
 
+    before(:each) do
+      @user = Factory(:user)
+    end
 
-end 
+    it "should deny access to 'edit' " do
+      get :edit, :id => @user
+      expect(response).to redirect_to(signin_path)
+      expect(flash[:notice]).to match(/Sign in/i)
+    end
+
+    it "should deny access to 'edit' " do
+      put :update, :id => @user, :user => {}
+      expect(response).to redirect_to(signin_path)
+    end
+
+  end
+end
