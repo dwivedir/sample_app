@@ -1,0 +1,20 @@
+<h1>File Upload</h1>
+
+
+<%= form_for(@store, :url => upload_path) do |f|%>
+  <div class="field">
+    <%= f.label :file %> <br />
+    <%= f.file_field :file %>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+  </div>
+  <div class="field">
+    <%= f.label :private %>
+    <%= f.radio_button :private, true %>
+    <%= f.label :public %>
+    <%= f.radio_button :private, false %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Upload" %>
+  </div>
+<% end %>
+

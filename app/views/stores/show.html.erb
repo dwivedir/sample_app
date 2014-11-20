@@ -1,0 +1,15 @@
+<table class="profile" summary="Profile information">
+  <tr>
+    <td class="main">
+      <h5>
+        <%= @store.name %><br />
+        shared by -  
+        <%= link_to @user.name, user_path(@user) %>
+      </h5>
+    </td>
+    <td class="sidebar round">
+      <strong>Name</strong> <%= @store.name %><br />
+      <%= link_to "download here", "/data/#{@store.user_id}/#{@store.name}" %>
+    </td>
+  </tr>
+</table>

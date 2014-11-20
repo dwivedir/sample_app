@@ -4,6 +4,12 @@
       <h1>
         <%= @user.name %>
       </h1>
+      <br/>
+      <% @user.stores.each do |store| %>
+        <% if !store.private || store.private && correct_user?(@user) %>
+          <h5><%= link_to store.name, store_path(store) %></h5>
+        <% end %>
+      <% end %>
     </td>
     <td class="sidebar round">
       <strong>Name</strong> <%= @user.name %><br />

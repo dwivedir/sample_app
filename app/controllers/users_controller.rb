@@ -1,10 +1,11 @@
 class UsersController < ApplicationController
 
   before_filter :authenticate , :only => [:index, :edit, :update]
-  before_filte  :correct_user,  :only => [:edit, :update]
+  before_filter :correct_user,  :only => [:edit, :update]
 
   def index
-
+    @users = User.all
+    @title = "All users"
   end
 
   def new
@@ -18,10 +19,10 @@ class UsersController < ApplicationController
   end
 
   def create
-    puts params[:user].inspect
-    @user = User.new(params[:user])
+    @user = User.new(user_params)
     if @user.save
-      sign_in @user
+      log_in @user
+      Dir.mkdir "public/data/#{@user.id}"
       flash[:success] = "Welcome to the sample App"
       redirect_to @user
     else
@@ -37,7 +38,7 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    if @user.update_attributes(params[:user])
+    if @user.update_attributes(user_params)
       redirect_to @user, :flash => { :success => "Profile updated" }
     else
       @title = "Edit User"
@@ -47,9 +48,10 @@ class UsersController < ApplicationController
 
   private
 
-  def authenticate
-    deny_access unless sign_in?
+  def user_params
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
+
 
   def correct_user
     @user = User.find(params[:id])

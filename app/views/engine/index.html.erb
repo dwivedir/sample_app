@@ -1,0 +1,22 @@
+<table class="Profile" summary="Profile Information">
+  <tr>
+    <%= form_for(:key_word, :url => search_path) do |f| %>
+      <td>
+        <div class="fields">
+          <%= f.text_field  :key , :value => @key_word %>
+        </div>
+      </td>
+      <td>
+        <div class="actions">
+          <%= f.submit "Search!" %>
+        </div>
+      </td>
+    <% end %>
+  </tr>
+  <br/>
+  <tr>
+    <% @results.each do |result| %>
+      <%= link_to result.name, store_path(result) %><br/>
+    <% end %>
+  </tr>
+</table>
