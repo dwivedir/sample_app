@@ -19,4 +19,5 @@ doc/api
 *.swp
 *~
 .DS_Store
+/public
 
