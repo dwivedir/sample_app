@@ -15,12 +15,18 @@ class StoresController < ApplicationController
 
     Store.save(params[:store])
     @store = Store.new(:name        => params[:store]['file'].original_filename.downcase, 
-                       :user_id     => params[:store]['user_id'],
+                       :user_id     => params[:store]['user_id']
                        :private     => params[:store]['private'])
     @store.save
     flash[:success] = "File has been uploaded"
     redirect_to upload_path
   end
+
+  def edit
+    @store = Store.find(params[:id])
+    @tags = @store.tags
+  end
+
 
   private
 

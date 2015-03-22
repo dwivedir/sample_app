@@ -1,5 +1,5 @@
 class Store < ActiveRecord::Base
-  has_many :hash_words
+  has_and_belongs_to_many :tags
   belongs_to :user
 
   def self.save(upload)

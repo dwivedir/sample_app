@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141019075949) do
+ActiveRecord::Schema.define(version: 20150322104742) do
 
   create_table "hash_words", force: true do |t|
     t.integer  "file_id"
@@ -24,6 +24,17 @@ ActiveRecord::Schema.define(version: 20141019075949) do
     t.string   "name"
     t.integer  "user_id"
     t.boolean  "private"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "stores_tags", id: false, force: true do |t|
+    t.integer "store_id", null: false
+    t.integer "tag_id",   null: false
+  end
+
+  create_table "tags", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

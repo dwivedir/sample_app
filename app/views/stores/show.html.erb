@@ -12,4 +12,13 @@
       <%= link_to "download here", "/data/#{@store.user_id}/#{@store.name}" %>
     </td>
   </tr>
+  <tr class="round">
+    <td>
+      <h4>
+        <% @store.tags.each do |tag| %>
+          <%= link_to "#{tag.name}", "#" %>
+        <% end %>
+      </h4>
+    </td>
+  </tr>
 </table>
